@@ -37,11 +37,22 @@ document.body.appendChild(app.view);
 
 // loading sprites:
 // (add method can also take an array of file names)
-spriteManager.loadStillSprite(
-  'assets/grey_x2.png', {
-    posx: 296,
-    posy: 296,
-  }
-);
+//spriteManager.loadStillSprite(
+//  'assets/grey_x2.png', {
+//    posx: 296,
+//    posy: 296,
+//  }
+//);
 //spriteManager.loadStillSprites(['assets/grey_x2.png', 'assets/grey.png']);
+//spriteManager.loadTile('assets/grey_x2.png');
 
+PIXI.loader
+  .add('assets/grey_x2.json')
+  .load(setup);
+
+function setup() {
+  console.log('loaded');
+  let greys = PIXI.loader.resources['assets/grey_x2.json'].textures;
+  let sprite = new PIXI.Sprite(greys['stand_right.png']);
+  app.stage.addChild(sprite);
+}

@@ -1,11 +1,16 @@
 
 var spriteManager = (function() {
+  var WALKER_WIDTH = 52;
+  var WALKER_HEIGHT = 72;
+
   var app;  // reference to the main application
+  var textureCache = PIXI.utils.TextureCache;
 
   return {
     setApp: setApp,
     loadStillSprite: loadStillSprite,
     loadStillSprites: loadStillSprites,
+    loadTile: loadTile,
   };
 
   function setApp(application) {
@@ -19,6 +24,14 @@ var spriteManager = (function() {
       .add(path)
       .load(function() {
         addPathToStage(path, options);
+      });
+  }
+
+  function loadTile(path) {
+    PIXI.loader
+      .add(path)
+      .load(function() {
+        setupTile(path);
       });
   }
 
@@ -59,6 +72,16 @@ var spriteManager = (function() {
     sprite.width = options.width || sprite.width;
     sprite.scale.x = options.scalex || sprite.scale.x;
     sprite.scale.y = options.scaley || sprite.scale.y;
+  }
+
+  function setupTile(path) {
+    let texture = textureCache[path];
+    let rectangle = new PIXI.Rectangle(0, 0, WALKER_WIDTH, WALKER_HEIGHT);
+    texture.frame = rectangle;
+    let sprite = new PIXI.Sprite(texture);
+    sprite.x = 32;
+    sprite.y = 32;
+    app.stage.addChild(sprite);
   }
 
 })()
