@@ -13,6 +13,7 @@ let app = new PIXI.Application({
   transparent: false, // default false
   resolution: 1,      // default 1
 });
+spriteManager.setApp(app);
 
 // change the background color
 app.renderer.backgroundColor = 0x061639;
@@ -36,5 +37,11 @@ document.body.appendChild(app.view);
 
 // loading sprites:
 // (add method can also take an array of file names)
-spriteManager.loadStillSprite('assets/grey_x2.png');
+spriteManager.loadStillSprite(
+  'assets/grey_x2.png', {
+    posx: 296,
+    posy: 296,
+  }
+);
+//spriteManager.loadStillSprites(['assets/grey_x2.png', 'assets/grey.png']);
 
