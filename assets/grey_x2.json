@@ -5,7 +5,7 @@
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {"x": 0, "y": 0, "w": 52, "h": 72},
-      "sourceSize": {"w": 32, "h":24},
+      "sourceSize": {"w": 52, "h":72},
       "pivot": {"x": 0.5, "y": 0.5}
     },
     "stand_front.png": {
@@ -13,7 +13,7 @@
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {"x": 0, "y": 0, "w": 52, "h": 72},
-      "sourceSize": {"w": 32, "h":24},
+      "sourceSize": {"w": 52, "h":72},
       "pivot": {"x": 0.5, "y": 0.5}
     },
     "walk_front_two.png": {
@@ -21,7 +21,7 @@
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {"x": 0, "y": 0, "w": 52, "h": 72},
-      "sourceSize": {"w": 32, "h":24},
+      "sourceSize": {"w": 52, "h":72},
       "pivot": {"x": 0.5, "y": 0.5}
     },
     "walk_left_one.png": {
@@ -29,7 +29,7 @@
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {"x": 0, "y": 0, "w": 52, "h": 72},
-      "sourceSize": {"w": 32, "h":24},
+      "sourceSize": {"w": 52, "h":72},
       "pivot": {"x": 0.5, "y": 0.5}
     },
     "stand_left.png": {
@@ -37,7 +37,7 @@
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {"x": 0, "y": 0, "w": 52, "h": 72},
-      "sourceSize": {"w": 32, "h":24},
+      "sourceSize": {"w": 52, "h":72},
       "pivot": {"x": 0.5, "y": 0.5}
     },
     "walk_left_two.png": {
@@ -45,7 +45,7 @@
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {"x": 0, "y": 0, "w": 52, "h": 72},
-      "sourceSize": {"w": 32, "h":24},
+      "sourceSize": {"w": 52, "h":72},
       "pivot": {"x": 0.5, "y": 0.5}
     },
     "walk_right_one.png": {
@@ -53,7 +53,7 @@
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {"x": 0, "y": 0, "w": 52, "h": 72},
-      "sourceSize": {"w": 32, "h":24},
+      "sourceSize": {"w": 52, "h":72},
       "pivot": {"x": 0.5, "y": 0.5}
     },
     "stand_right.png": {
@@ -61,7 +61,7 @@
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {"x": 0, "y": 0, "w": 52, "h": 72},
-      "sourceSize": {"w": 32, "h":24},
+      "sourceSize": {"w": 52, "h":72},
       "pivot": {"x": 0.5, "y": 0.5}
     },
     "walk_right_two.png": {
@@ -69,7 +69,7 @@
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {"x": 0, "y": 0, "w": 52, "h": 72},
-      "sourceSize": {"w": 32, "h":24},
+      "sourceSize": {"w": 52, "h":72},
       "pivot": {"x": 0.5, "y": 0.5}
     },
     "walk_back_one.png": {
@@ -77,14 +77,14 @@
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {"x": 0, "y": 0, "w": 52, "h": 72},
-      "sourceSize": {"w": 32, "h":24},
+      "sourceSize": {"w": 52, "h":72},
       "pivot": {"x": 0.5, "y": 0.5}},
     "stand_back.png": {
       "frame": {"x": 52, "y": 216, "w": 52, "h": 72},
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {"x": 0, "y": 0, "w": 52, "h": 72},
-      "sourceSize": {"w": 32, "h":24},
+      "sourceSize": {"w": 52, "h":72},
       "pivot": {"x": 0.5, "y": 0.5}
     },
     "walk_back_two.png": {
@@ -92,7 +92,7 @@
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {"x": 0, "y": 0, "w": 52, "h": 72},
-      "sourceSize": {"w": 32, "h":24},
+      "sourceSize": {"w": 52, "h":72},
       "pivot": {"x": 0.5, "y": 0.5}
     }
   },

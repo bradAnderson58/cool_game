@@ -16,7 +16,7 @@ let app = new PIXI.Application({
 spriteManager.setApp(app);
 
 // change the background color
-app.renderer.backgroundColor = 0x061639;
+//app.renderer.backgroundColor = 0x061639;
 
 // resizing the canvas
 //app.renderer.autoResize = true;
@@ -47,12 +47,44 @@ document.body.appendChild(app.view);
 //spriteManager.loadTile('assets/grey_x2.png');
 
 PIXI.loader
-  .add('assets/grey_x2.json')
+  .add([
+    'assets/grey_x2.json',
+    'assets/tf_darkdimension/darkdimension.json',
+  ])
   .load(setup);
+
+//spriteManager.loadStillSprite('assets/tf_darkdimension/tf_darkdimension_sheet.png', {posx: 500, posy: 400, scalex: 2, scaley: 2});
 
 function setup() {
   console.log('loaded');
   let greys = PIXI.loader.resources['assets/grey_x2.json'].textures;
-  let sprite = new PIXI.Sprite(greys['stand_right.png']);
+  let sprite = new PIXI.Sprite(greys['stand_front.png']);
+  sprite.position.set(100, 100);
+  
+  let darkdimension = PIXI.loader.resources['assets/tf_darkdimension/darkdimension.json'].textures;
+  for (var i = 0; i <= 5; ++i) {
+    let sky = new PIXI.Sprite(darkdimension['night_sky.png']);
+    sky.position.set(i*(254), 0);
+    app.stage.addChild(sky);
+  }
+
+  for (var x = 0; x < 45; ++x) {
+    for (var y = 0; y < 21; ++y) {
+      let floor_tile = new PIXI.Sprite(darkdimension['moon_floor_' + randomInt(1,7) + '.png']);
+      floor_tile.position.set(x * 32, 128 + (y * 30));
+      app.stage.addChild(floor_tile);
+    }
+    
+  }
+  
+  let crystal = new PIXI.Sprite(darkdimension['little_crystal.png']);
+  crystal.position.set(512, 512);
+  app.stage.addChild(crystal);
+
   app.stage.addChild(sprite);
+
+}
+
+function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }

@@ -60,7 +60,6 @@ var spriteManager = (function() {
     if (options) {
       processOptions(sprite, options);
     }
-    sprite.rotation = 0.5;
 
     app.stage.addChild(sprite);
   }

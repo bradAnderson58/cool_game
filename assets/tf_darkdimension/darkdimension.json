@@ -1,0 +1,82 @@
+{
+  "frames": {
+    "night_sky.png": {
+      "frame": {"x": 16, "y": 240, "w": 128, "h": 64},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x": 0, "y": 0, "w": 128, "h": 64},
+      "sourceSize": {"w": 128, "h":64},
+      "pivot": {"x": 0.5, "y": 0.5}
+    },
+    "moon_floor_1.png": {
+      "frame": {"x": 33, "y": 16, "w": 16, "h": 16},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x": 0, "y": 0, "w": 16, "h": 16},
+      "sourceSize": {"w": 16, "h":16},
+      "pivot": {"x": 0.5, "y": 0.5}
+    },
+    "moon_floor_2.png": {
+      "frame": {"x": 48, "y": 16, "w": 16, "h": 16},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x": 0, "y": 0, "w": 16, "h": 16},
+      "sourceSize": {"w": 16, "h":16},
+      "pivot": {"x": 0.5, "y": 0.5}
+    },
+    "moon_floor_3.png": {
+      "frame": {"x": 64, "y": 16, "w": 16, "h": 16},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x": 0, "y": 0, "w": 16, "h": 16},
+      "sourceSize": {"w": 16, "h":16},
+      "pivot": {"x": 0.5, "y": 0.5}
+    },
+    "moon_floor_4.png": {
+      "frame": {"x": 80, "y": 16, "w": 16, "h": 16},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x": 0, "y": 0, "w": 16, "h": 16},
+      "sourceSize": {"w": 16, "h":16},
+      "pivot": {"x": 0.5, "y": 0.5}
+    },
+    "moon_floor_5.png": {
+      "frame": {"x": 96, "y": 16, "w": 16, "h": 16},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x": 0, "y": 0, "w": 16, "h": 16},
+      "sourceSize": {"w": 16, "h":16},
+      "pivot": {"x": 0.5, "y": 0.5}
+    },
+    "moon_floor_6.png": {
+      "frame": {"x": 112, "y": 16, "w": 16, "h": 16},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x": 0, "y": 0, "w": 16, "h": 16},
+      "sourceSize": {"w": 16, "h":16},
+      "pivot": {"x": 0.5, "y": 0.5}
+    },
+    "moon_floor_7.png": {
+      "frame": {"x": 127, "y": 16, "w": 16, "h": 16},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x": 0, "y": 0, "w": 16, "h": 16},
+      "sourceSize": {"w": 16, "h":16},
+      "pivot": {"x": 0.5, "y": 0.5}
+    },
+    "little_crystal.png": {
+      "frame": {"x": 16, "y": 64, "w": 16, "h": 16},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x": 0, "y": 0, "w": 16, "h": 16},
+      "sourceSize": {"w": 16, "h":16},
+      "pivot": {"x": 0.5, "y": 0.5}
+    }
+  },
+  "meta": {
+    "image": "tf_darkdimension_sheet.png",
+    "format": "RGBA8888",
+    "size": {"w": 464, "h": 336},
+    "scale": 0.5
+  }
+}
