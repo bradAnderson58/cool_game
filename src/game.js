@@ -73,65 +73,22 @@ function setup() {
     app.stage.addChild(sky);
   }
   
+  let floor = new PIXI.particles.ParticleContainer();
   for (var x = 0; x < 45; ++x) {
     for (var y = 0; y < 21; ++y) {
       let floor_tile = new PIXI.Sprite(darkdimension['moon_floor_' + randomInt(1,7) + '.png']);
       floor_tile.position.set(x * 32, 128 + (y * 30));
-      app.stage.addChild(floor_tile);
+      floor.addChild(floor_tile);
     }
   }
+  app.stage.addChild(floor);
   
   let crystal = new PIXI.Sprite(darkdimension['little_crystal.png']);
   crystal.position.set(512, 512);
   app.stage.addChild(crystal);
 
   app.stage.addChild(sprite);
-
-  let up = keyboardManager.keyboard(87);    // w
-  let left = keyboardManager.keyboard(65);  // a
-  let down = keyboardManager.keyboard(83);  // s
-  let right = keyboardManager.keyboard(68); // d
-
-  left.press = function() {
-    sprite.vx = -5;
-    sprite.vy = 0;
-  }
-  left.release = function() {
-    if (!right.isDown && sprite.vy === 0) {
-      sprite.vx = 0;
-    }
-  }
-
-  right.press = function() {
-    console.log('right!');
-    sprite.vx = 5;
-    sprite.vy = 0;
-  }
-  right.release = function() {
-    if (!left.isDown && sprite.vy === 0) {
-      sprite.vx = 0;
-    }
-  }
-
-  up.press = function() {
-    sprite.vx = 0;
-    sprite.vy = -5;
-  }
-  up.release = function() {
-    if (!down.isDown && sprite.vx === 0) {
-      sprite.vy = 0;
-    }
-  }
-
-  down.press = function() {
-    sprite.vx = 0;
-    sprite.vy = 5;
-  }
-  down.release = function() {
-    if (!up.isDown && sprite.vx === 0) {
-      sprite.vy = 0;
-    }
-  }
+  keyboardManager.mapPlayer(sprite);
 
   app.ticker.add(delta => gameLoop(delta));
 }
