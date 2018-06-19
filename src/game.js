@@ -55,11 +55,16 @@ PIXI.loader
 
 //spriteManager.loadStillSprite('assets/tf_darkdimension/tf_darkdimension_sheet.png', {posx: 500, posy: 400, scalex: 2, scaley: 2});
 
+let sprite;
+let state = play;
+
 function setup() {
   console.log('loaded');
   let greys = PIXI.loader.resources['assets/grey_x2.json'].textures;
-  let sprite = new PIXI.Sprite(greys['stand_front.png']);
+  sprite = new PIXI.Sprite(greys['stand_front.png']);
   sprite.position.set(100, 100);
+  sprite.vx = 0;
+  sprite.vy = 0;
   
   let darkdimension = PIXI.loader.resources['assets/tf_darkdimension/darkdimension.json'].textures;
   for (var i = 0; i <= 5; ++i) {
@@ -67,14 +72,13 @@ function setup() {
     sky.position.set(i*(254), 0);
     app.stage.addChild(sky);
   }
-
+  
   for (var x = 0; x < 45; ++x) {
     for (var y = 0; y < 21; ++y) {
       let floor_tile = new PIXI.Sprite(darkdimension['moon_floor_' + randomInt(1,7) + '.png']);
       floor_tile.position.set(x * 32, 128 + (y * 30));
       app.stage.addChild(floor_tile);
     }
-    
   }
   
   let crystal = new PIXI.Sprite(darkdimension['little_crystal.png']);
@@ -83,8 +87,64 @@ function setup() {
 
   app.stage.addChild(sprite);
 
+  let up = keyboardManager.keyboard(87);    // w
+  let left = keyboardManager.keyboard(65);  // a
+  let down = keyboardManager.keyboard(83);  // s
+  let right = keyboardManager.keyboard(68); // d
+
+  left.press = function() {
+    sprite.vx = -5;
+    sprite.vy = 0;
+  }
+  left.release = function() {
+    if (!right.isDown && sprite.vy === 0) {
+      sprite.vx = 0;
+    }
+  }
+
+  right.press = function() {
+    console.log('right!');
+    sprite.vx = 5;
+    sprite.vy = 0;
+  }
+  right.release = function() {
+    if (!left.isDown && sprite.vy === 0) {
+      sprite.vx = 0;
+    }
+  }
+
+  up.press = function() {
+    sprite.vx = 0;
+    sprite.vy = -5;
+  }
+  up.release = function() {
+    if (!down.isDown && sprite.vx === 0) {
+      sprite.vy = 0;
+    }
+  }
+
+  down.press = function() {
+    sprite.vx = 0;
+    sprite.vy = 5;
+  }
+  down.release = function() {
+    if (!up.isDown && sprite.vx === 0) {
+      sprite.vy = 0;
+    }
+  }
+
+  app.ticker.add(delta => gameLoop(delta));
 }
 
 function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function gameLoop(delta) {
+  state(delta);
+}
+
+function play(delta) {
+  sprite.x += sprite.vx;
+  sprite.y += sprite.vy;
 }
