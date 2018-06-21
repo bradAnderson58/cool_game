@@ -90,6 +90,9 @@ function setup() {
   app.stage.addChild(sprite);
   keyboardManager.mapPlayer(sprite);
 
+  // shapes code
+  dialogueManager.initializeDialogue(app);
+
   app.ticker.add(delta => gameLoop(delta));
 }
 

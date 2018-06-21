@@ -5,6 +5,7 @@ var keyboardManager = (function() {
     A: 65,
     S: 83,
     D: 68,
+    ENTER: 13,
   }
 
   let controls = undefined;
@@ -18,22 +19,41 @@ var keyboardManager = (function() {
         right: mapKey(Keys.D),
       };
 
-      controls.left.press = function() {
-        player.vx = -5;
-        player.vy = 0;
-      }
-      controls.right.press = function() {
-        player.vx = 5;
-        player.vy = 0;
-      }
-      controls.up.press = function() {
-        player.vx = 0;
-        player.vy = -5;
-      }
+      enter = mapKey(Keys.ENTER);
+      enter.press = () => {
+        let showingDialogue = dialogueManager.toggleDialogue();
+        if (showingDialogue) {
+          player.vx = 0;
+          player.vy = 0;
+        } else {
+          releaseMovementKey(player);
+        }
+      };
+
+      controls.left.press = () => {
+        if (!dialogueManager.dialogueOpen()) {
+          player.vx = -5;
+          player.vy = 0;
+        }
+      };
+      controls.right.press = () => {
+        if (!dialogueManager.dialogueOpen()) {
+          player.vx = 5;
+          player.vy = 0;
+        }
+      };
+      controls.up.press = () => {
+        if (!dialogueManager.dialogueOpen()) {
+          player.vx = 0;
+          player.vy = -5;
+        }
+      };
       controls.down.press = () => {
-        player.vx = 0;
-        player.vy = 5;
-      }
+        if (!dialogueManager.dialogueOpen()) {
+          player.vx = 0;
+          player.vy = 5;
+        }
+      };
       
       Object.keys(controls).forEach(key => {
         let control = controls[key];
