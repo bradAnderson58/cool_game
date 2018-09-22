@@ -15,13 +15,6 @@ let app = new PIXI.Application({
 });
 spriteManager.setApp(app);
 
-// change the background color
-//app.renderer.backgroundColor = 0x061639;
-
-// resizing the canvas
-//app.renderer.autoResize = true;
-//app.renderer.resize(1000, 448);
-
 // auto scale the canvas to the size of the window
 app.renderer.view.style.position = 'absolute';
 app.renderer.view.style.display = 'block';
@@ -31,21 +24,6 @@ app.renderer.resize(window.innerWidth, window.innerHeight);
 // add the canvas that pixi creates to the html document
 document.body.appendChild(app.view);
 
-// another option, use the scaler
-//var scale = scaleUtil.scaleToWindow(app.renderer.view);
-//console.log(scale);
-
-// loading sprites:
-// (add method can also take an array of file names)
-//spriteManager.loadStillSprite(
-//  'assets/grey_x2.png', {
-//    posx: 296,
-//    posy: 296,
-//  }
-//);
-//spriteManager.loadStillSprites(['assets/grey_x2.png', 'assets/grey.png']);
-//spriteManager.loadTile('assets/grey_x2.png');
-
 PIXI.loader
   .add([
     'assets/grey_x2.json',
@@ -53,18 +31,12 @@ PIXI.loader
   ])
   .load(setup);
 
-//spriteManager.loadStillSprite('assets/tf_darkdimension/tf_darkdimension_sheet.png', {posx: 500, posy: 400, scalex: 2, scaley: 2});
-
-let sprite;
 let state = play;
 
 function setup() {
   console.log('loaded');
-  let greys = PIXI.loader.resources['assets/grey_x2.json'].textures;
-  sprite = new PIXI.Sprite(greys['stand_front.png']);
-  sprite.position.set(100, 100);
-  sprite.vx = 0;
-  sprite.vy = 0;
+  const player = playerManager.playerInstance();
+  player.setPos(100, 100);
   
   let darkdimension = PIXI.loader.resources['assets/tf_darkdimension/darkdimension.json'].textures;
   for (var i = 0; i <= 5; ++i) {
@@ -83,13 +55,11 @@ function setup() {
   }
   app.stage.addChild(floor);
   
-  let crystal = new PIXI.Sprite(darkdimension['little_crystal.png']);
-  crystal.name = 'crystal';
-  crystal.position.set(512, 512);
-  app.stage.addChild(crystal);
+  let crystal = new Item('crystal', darkdimension['little_crystal.png']);
+  crystal.setPos(512, 512);
+  app.stage.addChild(crystal.sprite);
 
-  app.stage.addChild(sprite);
-  keyboardManager.mapPlayer(sprite);
+  app.stage.addChild(player.sprite);
 
   // shapes code
   dialogueManager.initializeDialogue(app);
@@ -106,15 +76,14 @@ function gameLoop(delta) {
 }
 
 function play(delta) {
-  sprite.x += sprite.vx;
-  sprite.y += sprite.vy;
+  const player = playerManager.playerInstance();
+  playerManager.movePlayer();
 
   let c = app.stage.getChildByName('crystal');
-  if (!c.found && checkCollison(sprite, c)) {
+  if (!c.found && checkCollison(player.sprite, c)) {
     c.found = true;
     c.visible = false;
-    sprite.vx = 0;
-    sprite.vy = 0;
+    playerManager.setPlayerVelocity(0, 0);
     dialogueManager.openDialog("Found crystal");
   }
 

@@ -1,6 +1,6 @@
 
 var keyboardManager = (function() {
-  let Keys = {
+  const Keys = {
     W: 87,
     A: 65,
     S: 83,
@@ -8,83 +8,72 @@ var keyboardManager = (function() {
     ENTER: 13,
   }
 
-  let controls = undefined;
-  
-  return {
-    mapPlayer: function(player) {
-      controls = {
-        up: mapKey(Keys.W),
-        left: mapKey(Keys.A),
-        down: mapKey(Keys.S),
-        right: mapKey(Keys.D),
-      };
+  const controls = {
+    up: mapKey(Keys.W),
+    left: mapKey(Keys.A),
+    down: mapKey(Keys.S),
+    right: mapKey(Keys.D),
+  };
 
-      enter = mapKey(Keys.ENTER);
-      enter.press = () => {
-        let showingDialogue = dialogueManager.toggleDialogue();
-        if (showingDialogue) {
-          player.vx = 0;
-          player.vy = 0;
-        } else {
-          releaseMovementKey(player);
-        }
-      };
-
-      controls.left.press = () => {
-        if (!dialogueManager.dialogueIsOpen()) {
-          player.vx = -5;
-          player.vy = 0;
-        }
-      };
-      controls.right.press = () => {
-        if (!dialogueManager.dialogueIsOpen()) {
-          player.vx = 5;
-          player.vy = 0;
-        }
-      };
-      controls.up.press = () => {
-        if (!dialogueManager.dialogueIsOpen()) {
-          player.vx = 0;
-          player.vy = -5;
-        }
-      };
-      controls.down.press = () => {
-        if (!dialogueManager.dialogueIsOpen()) {
-          player.vx = 0;
-          player.vy = 5;
-        }
-      };
-      
-      Object.keys(controls).forEach(key => {
-        let control = controls[key];
-        control.release = () => {
-          control.isDown = false;
-          releaseMovementKey(player);
-        };
-      });
+  const enter = mapKey(Keys.ENTER);
+  enter.press = () => {
+    const showingDialogue = dialogueManager.toggleDialogue();
+    if (showingDialogue) {
+      playerManager.setPlayerVelocity(0, 0);
+    } else {
+      releaseMovementKey();
     }
-  }
+  };
+  
+  controls.left.press = () => {
+    if (!dialogueManager.dialogueIsOpen()) {
+      playerManager.setPlayerVelocity(-5, 0);
+    }
+  };
+  controls.right.press = () => {
+    if (!dialogueManager.dialogueIsOpen()) {
+      playerManager.setPlayerVelocity(5, 0);
+    }
+  };
+  controls.up.press = () => {
+    if (!dialogueManager.dialogueIsOpen()) {
+      playerManager.setPlayerVelocity(0, -5);
+    }
+  };
+  controls.down.press = () => {
+    if (!dialogueManager.dialogueIsOpen()) {
+      playerManager.setPlayerVelocity(0, 5);
+    }
+  };
+      
+  Object.keys(controls).forEach(key => {
+    let control = controls[key];
+    control.release = () => {
+      control.isDown = false;
+      releaseMovementKey();
+    };
+  });
 
   function mapKey(keyCode) {
-      let key = {};
-      key.code = keyCode;
-      key.isDown = false;
-      key.isUp = true;
-      key.press = undefined;
-      key.release = undefined;
+    const key = {};
+    key.code = keyCode;
+    key.isDown = false;
+    key.isUp = true;
+    key.press = undefined;
+    key.release = undefined;
 
-      key.downHandler = event => {
-        keyDown(event, key);
-      };
+    key.downHandler = event => {
+      keyDown(event, key);
+    };
 
-      key.upHandler = event => {
-        keyUp(event, key);
-      };
+    key.upHandler = event => {
+      keyUp(event, key);
+    };
 
-      window.addEventListener('keydown', key.downHandler.bind(key), false);
-      window.addEventListener('keyup', key.upHandler.bind(key), false);
+    window.addEventListener('keydown', key.downHandler.bind(key), false);
+    window.addEventListener('keyup', key.upHandler.bind(key), false);
 
-      return key;
+    return key;
   }
 
   function keyDown(event, key) {
@@ -109,7 +98,7 @@ var keyboardManager = (function() {
     }
   }
 
-  function releaseMovementKey(player) {
+  function releaseMovementKey() {
     if (controls.up.isDown) {
       controls.up.press();
     } else if (controls.down.isDown) {
@@ -119,8 +108,7 @@ var keyboardManager = (function() {
     } else if (controls.right.isDown) {
       controls.right.press();
     } else {
-      player.vx = 0;
-      player.vy = 0;
+      playerManager.setPlayerVelocity(0, 0);
     }
   }
 })();
