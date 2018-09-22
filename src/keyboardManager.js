@@ -14,8 +14,8 @@ var keyboardManager = (function() {
     mapPlayer: function(player) {
       controls = {
         up: mapKey(Keys.W),
-        down: mapKey(Keys.S),
         left: mapKey(Keys.A),
+        down: mapKey(Keys.S),
         right: mapKey(Keys.D),
       };
 
@@ -31,25 +31,25 @@ var keyboardManager = (function() {
       };
 
       controls.left.press = () => {
-        if (!dialogueManager.dialogueOpen()) {
+        if (!dialogueManager.dialogueIsOpen()) {
           player.vx = -5;
           player.vy = 0;
         }
       };
       controls.right.press = () => {
-        if (!dialogueManager.dialogueOpen()) {
+        if (!dialogueManager.dialogueIsOpen()) {
           player.vx = 5;
           player.vy = 0;
         }
       };
       controls.up.press = () => {
-        if (!dialogueManager.dialogueOpen()) {
+        if (!dialogueManager.dialogueIsOpen()) {
           player.vx = 0;
           player.vy = -5;
         }
       };
       controls.down.press = () => {
-        if (!dialogueManager.dialogueOpen()) {
+        if (!dialogueManager.dialogueIsOpen()) {
           player.vx = 0;
           player.vy = 5;
         }

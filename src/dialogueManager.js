@@ -1,5 +1,6 @@
 
 var dialogueManager = (function() {
+  const DEFAULT_MESSAGE = 'Nothing to do';
   let rectangle = new PIXI.Graphics();
   let message = undefined;
 
@@ -12,7 +13,13 @@ var dialogueManager = (function() {
   return {
     toggleDialogue: toggleDialogue,
     initializeDialogue: initializeDialogue,
-    dialogueOpen: dialogueOpen,
+    openDialog: openDialog,
+    closeDialog: closeDialog,
+    dialogueIsOpen: dialogueIsOpen,
+  }
+
+  function dialogueIsOpen() {
+    return rectangle.visible;
   }
 
   function toggleDialogue() {
@@ -21,8 +28,19 @@ var dialogueManager = (function() {
     return rectangle.visible;
   }
 
-  function dialogueOpen() {
-    return rectangle.visible;
+  function openDialog(msgText) {
+    if (msgText) {
+      message.text = msgText;
+    } else {
+      message.text = DEFAULT_MESSAGE
+    }
+    rectangle.visible = true;
+    message.visible = true;
+  }
+
+  function closeDialog() {
+    rectangle.visible = false;
+    message.visible = false;
   }
 
   function initializeDialogue(app) {
@@ -52,7 +70,7 @@ var dialogueManager = (function() {
       stroke: '#000000',
       strokeThickness: 2,
     });
-    message = new PIXI.Text('Nothing to do', style);
+    message = new PIXI.Text(DEFAULT_MESSAGE, style);
     message.anchor.set(0.5, 0.5);
     message.position.set(halfWidth, bottomy + (quarterHeight / 2));
   }
