@@ -17,11 +17,15 @@ var keyboardManager = (function() {
 
   const enter = mapKey(Keys.ENTER);
   enter.press = () => {
-    const showingDialogue = dialogueManager.toggleDialog();
-    if (showingDialogue) {
-      playerManager.setPlayerVelocity(0, 0);
+    if (dialogueManager.dialogueIsOpen()) {
+      dialogueManager.closeDialog();
     } else {
-      releaseMovementKey();
+      const interactable = playerManager.checkInteractions();
+      if (interactable) {
+        interactable.playInteraction();
+      } else {
+        dialogueManager.openDialog();
+      }
     }
   };
   
@@ -53,6 +57,10 @@ var keyboardManager = (function() {
       releaseMovementKey();
     };
   });
+
+  return {
+    releaseMovementKey: releaseMovementKey,
+  }
 
   function mapKey(keyCode) {
     const key = {};

@@ -8,6 +8,7 @@ const playerManager = (() => {
     playerInstance: playerInstance,
     movePlayer: movePlayer,
     setPlayerVelocity: setPlayerVelocity,
+    checkInteractions: checkInteractions,
   }
 
   function initializePlayer(spritesheet) {
@@ -31,6 +32,11 @@ const playerManager = (() => {
 
   function setPlayerVelocity(vx, vy) {
     player.setVelocity(vx, vy);
+  }
+
+  function checkInteractions() {
+    const items = itemManager.getItems();
+    return items.find(item => spriteUtils.checkCollison(player.sprite, item.sprite));
   }
 
 })();

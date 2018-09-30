@@ -10,5 +10,18 @@ function Item(name, spriteImage, layer=1) {
 Item.prototype = {
   setPos: function(x, y) {
     this.sprite.position.set(x, y);
-  }
+  },
+
+
+  setInteraction: function(interaction) {
+    this.interaction = interaction.bind(this);
+  },
+
+  playInteraction: function() {
+    if (this.interaction) {
+      this.interaction();
+    } else {
+      dialogueManager.toggleDialog();
+    }
+  },
 }

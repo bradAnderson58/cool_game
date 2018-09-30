@@ -32,6 +32,7 @@ var dialogueManager = (function() {
   }
 
   function openDialog(msgText) {
+    playerManager.setPlayerVelocity(0, 0);
     if (msgText) {
       message.text = msgText;
     } else {
@@ -44,6 +45,7 @@ var dialogueManager = (function() {
   function closeDialog() {
     rectangle.visible = false;
     message.visible = false;
+    keyboardManager.releaseMovementKey();
   }
 
   function initializeDialogue(app) {
