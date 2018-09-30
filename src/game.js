@@ -5,6 +5,7 @@ if(!PIXI.utils.isWebGLSupported()){
 console.log(type);
 PIXI.utils.sayHello(type);
 
+// TODO: move this creation stuff to its own file?
 // create a PIXI application
 let app = new PIXI.Application({
   width: 800,         // default: 800
@@ -31,13 +32,17 @@ PIXI.loader
   ])
   .load(setup);
 
-let state = play;
+// TODO: the main game loop should also be separated out
+const state = play;
 
+
+// TODO: the initialization function should be separate
 function setup() {
   console.log('loaded');
   const player = playerManager.playerInstance();
   player.setPos(100, 100);
   
+  // TODO: loading level maps will be down the road
   let darkdimension = PIXI.loader.resources['assets/tf_darkdimension/darkdimension.json'].textures;
   for (var i = 0; i <= 5; ++i) {
     let sky = new PIXI.Sprite(darkdimension['night_sky.png']);
@@ -54,12 +59,13 @@ function setup() {
     }
   }
   app.stage.addChild(floor);
+  stageUtils.resortStageLayers();
   
-  let crystal = new Item('crystal', darkdimension['little_crystal.png']);
+  // TODO: need a way to define items declaratively (json, yaml?)
+  const crystal = itemManager.createItem('crystal', darkdimension['little_crystal.png']);
   crystal.setPos(512, 512);
-  app.stage.addChild(crystal.sprite);
-
-  app.stage.addChild(player.sprite);
+  const plant = itemManager.createItem('plant', darkdimension['little_plant.png']);
+  plant.setPos(700, 400);
 
   // shapes code
   dialogueManager.initializeDialogue(app);
@@ -79,7 +85,9 @@ function play(delta) {
   const player = playerManager.playerInstance();
   playerManager.movePlayer();
 
-  let c = app.stage.getChildByName('crystal');
+  const collidableItems = itemManager.getCollidableItems();
+
+  const c = itemManager.getItem('crystal');
   if (!c.found && checkCollison(player.sprite, c)) {
     c.found = true;
     c.visible = false;

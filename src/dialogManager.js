@@ -11,7 +11,7 @@ var dialogueManager = (function() {
   let bottomy = (window.innerHeight / 1.5);
 
   return {
-    toggleDialogue: toggleDialogue,
+    toggleDialog: toggleDialog,
     initializeDialogue: initializeDialogue,
     openDialog: openDialog,
     closeDialog: closeDialog,
@@ -22,9 +22,12 @@ var dialogueManager = (function() {
     return rectangle.visible;
   }
 
-  function toggleDialogue() {
-    rectangle.visible = !rectangle.visible;
-    message.visible = !message.visible;
+  function toggleDialog() {
+    if (rectangle.visible) {
+      closeDialog();
+    } else {
+      openDialog();
+    }
     return rectangle.visible;
   }
 
@@ -50,8 +53,7 @@ var dialogueManager = (function() {
     buildDefaultMessageText();
     app.stage.addChild(message);
 
-    rectangle.visible = false;
-    message.visible = false;
+    closeDialog();
   }
 
   function buildRectangle() {

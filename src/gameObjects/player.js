@@ -3,6 +3,7 @@ function Player(spriteSheet) {
   this.name = 'player';
   this.sprite = new PIXI.Sprite(spriteSheet);
   this.sprite.name = 'player';
+  this.sprite.layer = 1;
   this.sprite.vx = 0;
   this.sprite.vy = 0;
 }

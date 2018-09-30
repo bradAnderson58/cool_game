@@ -17,7 +17,7 @@ var keyboardManager = (function() {
 
   const enter = mapKey(Keys.ENTER);
   enter.press = () => {
-    const showingDialogue = dialogueManager.toggleDialogue();
+    const showingDialogue = dialogueManager.toggleDialog();
     if (showingDialogue) {
       playerManager.setPlayerVelocity(0, 0);
     } else {

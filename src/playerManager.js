@@ -1,6 +1,6 @@
 
 
-const playerManager = (function() {
+const playerManager = (() => {
   let player;
 
   return {
@@ -13,6 +13,8 @@ const playerManager = (function() {
   function initializePlayer(spritesheet) {
     const greys = PIXI.loader.resources['assets/grey_x2.json'].textures;
     player = new Player(greys['stand_front.png']);
+    app.stage.addChild(player.sprite);
+    stageUtils.resortStageLayers();
   }
 
   function playerInstance() {
