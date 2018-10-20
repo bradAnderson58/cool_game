@@ -1,10 +1,11 @@
 
-function Item(name, spriteImage, layer=1) {
+function Item(name, spriteImage, layer=1, isSolid=false) {
   this.name = name;
   this.layer = layer;
   this.sprite = new PIXI.Sprite(spriteImage);
   this.sprite.name = name;
   this.sprite.layer = layer;
+  this.isSolid = isSolid;
 }
 
 Item.prototype = {

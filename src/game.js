@@ -73,6 +73,8 @@ function setup() {
   //plant.setInteraction(function() {
   //  console.log("Im a bush!");
   //});
+  const rock = itemManager.createItem('rock', darkdimension['floaty_rock.png'], 0, true);
+  rock.setPos(200, 200);
 
   // shapes code
   dialogueManager.initializeDialogue(app);

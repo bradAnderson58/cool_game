@@ -26,8 +26,12 @@ const playerManager = (() => {
   }
 
   function movePlayer() {
-    player.sprite.x += player.sprite.vx;
-    player.sprite.y += player.sprite.vy;
+    const newX = player.sprite.x + player.sprite.vx;
+    const newY = player.sprite.y + player.sprite.vy;
+    if (!checkSolidCollisions(newX, newY)) {
+      player.sprite.x = newX;
+      player.sprite.y = newY;
+    }
   }
 
   function setPlayerVelocity(vx, vy) {
@@ -37,6 +41,11 @@ const playerManager = (() => {
   function checkInteractions() {
     const items = itemManager.getItems();
     return items.find(item => spriteUtils.checkCollison(player.sprite, item.sprite));
+  }
+
+  function checkSolidCollisions(newX, newY) {
+    const solids = itemManager.getSolidItems();
+    return solids.find(item => spriteUtils.checkPotentialCollision(player.sprite, item.sprite, newX, newY));
   }
 
 })();

@@ -4,6 +4,7 @@ const spriteUtils = (() => {
 
   return {
     checkCollison: checkCollison,
+    checkPotentialCollision: checkPotentialCollision,
   }
 
   function checkCollison(item1, item2) {
@@ -35,7 +36,30 @@ const spriteUtils = (() => {
         hit = true;
       }
     }
+
     return hit;
+  }
+
+  function checkPotentialCollision(player, item, newX, newY) {
+    if (insideXRange(newX, player.width, item)) {
+      console.log(player.width);
+      console.log(item.width);
+    }
+    if (insideYRange(newY, player.height, item)) {
+      console.log(player.height);
+      console.log(item.height);
+    }
+    return insideXRange(newX, player.width, item) && insideYRange(newY, player.height, item);
+  }
+
+  function insideXRange(xRange, pWidth, item) {
+    return ((xRange + pWidth) >= item.x &&
+            xRange <= (item.x + item.width));
+  }
+
+  function insideYRange(yRange, pHeight, item) {
+    return ((yRange + pHeight) >= item.y &&
+            yRange <= (item.y + item.height));
   }
 
 })();
