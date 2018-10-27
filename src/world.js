@@ -29,6 +29,7 @@ const world = (function() {
     spriteManager.setApp(app);
     playerManager.setApp(app);
     itemManager.setApp(app);
+    camera.setStage(app);
   }
 
   function loadAssets(setupFn, playFn) {

@@ -18,8 +18,9 @@ const itemManager = (() => {
     }
     const item = new Item(name, spriteImage, layer, isSolid);
     items[name] = item;
-    app.stage.addChild(item.sprite);
-    stageUtils.resortStageLayers(app.stage);
+    camera.addToCamera(item.sprite);
+    //app.stage.addChild(item.sprite);
+    stageUtils.resortStageLayers();
     return item;
   }
 
@@ -36,7 +37,7 @@ const itemManager = (() => {
   }
 
   function removeItem(item) {
-    app.stage.removeChild(item.sprite);
+    camera.getInstance().removeChild(item.sprite);
     delete items[item.name];
   }
 

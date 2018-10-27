@@ -16,8 +16,9 @@ const playerManager = (() => {
   function initializePlayer(spritesheet) {
     const greys = PIXI.loader.resources['assets/grey_x2.json'].textures;
     player = new Player(greys['stand_front.png']);
-    app.stage.addChild(player.sprite);
-    stageUtils.resortStageLayers(app.stage);
+    camera.addToCamera(player.sprite);
+    //app.stage.addChild(player.sprite);
+    stageUtils.resortStageLayers();
   }
 
   function playerInstance() {

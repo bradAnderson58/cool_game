@@ -21,7 +21,8 @@ function setup() {
   for (var i = 0; i <= 5; ++i) {
     let sky = new PIXI.Sprite(darkdimension['night_sky.png']);
     sky.position.set(i*(254), 0);
-    app.stage.addChild(sky);
+    camera.addToCamera(sky);
+    //app.stage.addChild(sky);
   }
   
   let floor = new PIXI.particles.ParticleContainer();
@@ -32,8 +33,9 @@ function setup() {
       floor.addChild(floor_tile);
     }
   }
-  app.stage.addChild(floor);
-  stageUtils.resortStageLayers(app.stage);
+  camera.addToCamera(floor);
+  //app.stage.addChild(floor);
+  stageUtils.resortStageLayers();
   
   // TODO: need a way to define items declaratively (json, yaml?)
   const crystal = itemManager.createItem('crystal', darkdimension['little_crystal.png']);
@@ -60,6 +62,7 @@ function randomInt(min, max) {
 function play(delta) {
   const player = playerManager.playerInstance();
   playerManager.movePlayer();
+  camera.followPlayer(player);
 }
 
 
