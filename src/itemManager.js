@@ -1,8 +1,10 @@
 
 const itemManager = (() => {
   const items = {};
+  let app;
 
   return {
+    setApp: setApp,
     createItem: createItem,
     getItem: getItem,
     getItems: getItems,
@@ -17,7 +19,7 @@ const itemManager = (() => {
     const item = new Item(name, spriteImage, layer, isSolid);
     items[name] = item;
     app.stage.addChild(item.sprite);
-    stageUtils.resortStageLayers();
+    stageUtils.resortStageLayers(app.stage);
     return item;
   }
 
@@ -36,5 +38,9 @@ const itemManager = (() => {
   function removeItem(item) {
     app.stage.removeChild(item.sprite);
     delete items[item.name];
+  }
+
+  function setApp(application) {
+    app = application;
   }
 })();

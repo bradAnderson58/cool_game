@@ -2,8 +2,10 @@
 
 const playerManager = (() => {
   let player;
+  let app;
 
   return {
+    setApp: setApp,
     initializePlayer: initializePlayer,
     playerInstance: playerInstance,
     movePlayer: movePlayer,
@@ -15,7 +17,7 @@ const playerManager = (() => {
     const greys = PIXI.loader.resources['assets/grey_x2.json'].textures;
     player = new Player(greys['stand_front.png']);
     app.stage.addChild(player.sprite);
-    stageUtils.resortStageLayers();
+    stageUtils.resortStageLayers(app.stage);
   }
 
   function playerInstance() {
@@ -46,6 +48,10 @@ const playerManager = (() => {
   function checkSolidCollisions(newX, newY) {
     const solids = itemManager.getSolidItems();
     return solids.find(item => spriteUtils.checkPotentialCollision(player.sprite, item.sprite, newX, newY));
+  }
+
+  function setApp(application) {
+    app = application;
   }
 
 })();
