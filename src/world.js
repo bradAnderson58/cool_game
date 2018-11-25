@@ -26,37 +26,45 @@ const world = (function() {
     document.body.appendChild(app.view);
 
     // hacksy dependency injection
-    spriteManager.setApp(app);
-    playerManager.setApp(app);
-    itemManager.setApp(app);
-    camera.setStage(app);
+    //spriteManager.setApp(app);
+    //playerManager.setApp(app);
+    //itemManager.setApp(app);
+    //camera.setStage(app);
   }
 
   function startGame() {
     PIXI.loader
       .add([
-        'assets/grey_x2.json',
+        'assets/player_sheet.json',
         'assets/tf_darkdimension/darkdimension.json',
       ])
       .load(setup);
   }
 
   function setup() {
-    console.log('loaded');
-    const player = playerManager.playerInstance();
-    player.setPos(100, 100);
-
-    loaderUtil.loadLevel();
-
-    dialogueManager.initializeDialogue(app);
-
+    let sheet = PIXI.loader.resources['assets/player_sheet.json'].spritesheet;
+    console.log(sheet.textures);
+    let animation = new PIXI.extras.AnimatedSprite([sheet.textures['playerfront_01.png'], sheet.textures['playerfront_02.png']]);
+    animation.animationSpeed = 0.167;
+    animation.position.set(100, 100);
+    animation.play();
+    app.stage.addChild(animation);
     app.ticker.add(delta => play(delta));
+    //console.log('loaded');
+    //const player = playerManager.playerInstance();
+    //player.setPos(100, 100);
+
+    //loaderUtil.loadLevel();
+
+    //dialogueManager.initializeDialogue(app);
+
+    //app.ticker.add(delta => play(delta));
   }
 
   function play(delta) {
-    const player = playerManager.playerInstance();
-    playerManager.movePlayer();
-    camera.followPlayer(player);
+    //const player = playerManager.playerInstance();
+    //playerManager.movePlayer();
+    //camera.followPlayer(player);
   }
 
 })();
