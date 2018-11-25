@@ -11,7 +11,7 @@ const world = (function() {
 
   return {
     createWorld: createWorld,
-    loadAssets: loadAssets,
+    startGame: startGame,
   }
 
   function createWorld() {
@@ -32,18 +32,31 @@ const world = (function() {
     camera.setStage(app);
   }
 
-  function loadAssets(setupFn, playFn) {
-    const loadScope = {
-      app: app,
-      play: playFn,
-    }
-    console.log(app);
+  function startGame() {
     PIXI.loader
       .add([
         'assets/grey_x2.json',
         'assets/tf_darkdimension/darkdimension.json',
       ])
-      .load(setupFn.bind(loadScope));
+      .load(setup);
+  }
+
+  function setup() {
+    console.log('loaded');
+    const player = playerManager.playerInstance();
+    player.setPos(100, 100);
+
+    loaderUtil.loadLevel();
+
+    dialogueManager.initializeDialogue(app);
+
+    app.ticker.add(delta => play(delta));
+  }
+
+  function play(delta) {
+    const player = playerManager.playerInstance();
+    playerManager.movePlayer();
+    camera.followPlayer(player);
   }
 
 })();
