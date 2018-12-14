@@ -13,17 +13,15 @@ const playerManager = (() => {
     checkInteractions: checkInteractions,
   }
 
-  function initializePlayer(spritesheet) {
-    const greys = PIXI.loader.resources['assets/grey_x2.json'].textures;
-    player = new Player(greys['stand_front.png']);
+  function initializePlayer(spriteSheet) {
+    player = new Player(spriteSheet);
     camera.addToCamera(player.sprite);
-    //app.stage.addChild(player.sprite);
     stageUtils.resortStageLayers();
   }
 
   function playerInstance() {
     if (!player) { 
-      initializePlayer();
+      initializePlayer(PIXI.loader.resources['assets/player_sheet.json'].textures);
     }
     return player;
   }

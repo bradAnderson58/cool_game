@@ -1,5 +1,6 @@
 
 var keyboardManager = (function() {
+  const SPEED = 1.5;
   const Keys = {
     W: 87,
     A: 65,
@@ -31,22 +32,22 @@ var keyboardManager = (function() {
   
   controls.left.press = () => {
     if (!dialogueManager.dialogueIsOpen()) {
-      playerManager.setPlayerVelocity(-5, 0);
+      playerManager.setPlayerVelocity(-SPEED, 0);
     }
   };
   controls.right.press = () => {
     if (!dialogueManager.dialogueIsOpen()) {
-      playerManager.setPlayerVelocity(5, 0);
+      playerManager.setPlayerVelocity(SPEED, 0);
     }
   };
   controls.up.press = () => {
     if (!dialogueManager.dialogueIsOpen()) {
-      playerManager.setPlayerVelocity(0, -5);
+      playerManager.setPlayerVelocity(0, -SPEED);
     }
   };
   controls.down.press = () => {
     if (!dialogueManager.dialogueIsOpen()) {
-      playerManager.setPlayerVelocity(0, 5);
+      playerManager.setPlayerVelocity(0, SPEED);
     }
   };
       
