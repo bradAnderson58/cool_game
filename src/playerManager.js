@@ -27,10 +27,10 @@ const playerManager = (() => {
   }
 
   function movePlayer() {
+    updatePlayerAnimation();
+
     const newX = player.sprite.x + player.sprite.vx;
     const newY = player.sprite.y + player.sprite.vy;
-
-    updatePlayerAnimation();
 
     if (!checkSolidCollisions(newX, newY)) {
       player.sprite.x = newX;
@@ -42,6 +42,13 @@ const playerManager = (() => {
     if (player.sprite.vx !== 0 || player.sprite.vy !== 0) {
       if (player.currentAnimation !== 'moving') {
         const oldSprite = player.setAnimation('moving');
+        camera.removeFromCamera(oldSprite);
+        camera.addToCamera(player.sprite);
+        stageUtils.resortStageLayers();
+      }
+    } else {
+      if (player.currentAnimation !== 'notMoving') {
+        const oldSprite = player.setAnimation('notMoving');
         camera.removeFromCamera(oldSprite);
         camera.addToCamera(player.sprite);
         stageUtils.resortStageLayers();
