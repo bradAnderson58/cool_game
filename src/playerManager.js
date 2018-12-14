@@ -29,9 +29,23 @@ const playerManager = (() => {
   function movePlayer() {
     const newX = player.sprite.x + player.sprite.vx;
     const newY = player.sprite.y + player.sprite.vy;
+
+    updatePlayerAnimation();
+
     if (!checkSolidCollisions(newX, newY)) {
       player.sprite.x = newX;
       player.sprite.y = newY;
+    }
+  }
+
+  function updatePlayerAnimation() {
+    if (player.sprite.vx !== 0 || player.sprite.vy !== 0) {
+      if (player.currentAnimation !== 'moving') {
+        const oldSprite = player.setAnimation('moving');
+        camera.removeFromCamera(oldSprite);
+        camera.addToCamera(player.sprite);
+        stageUtils.resortStageLayers();
+      }
     }
   }
 
