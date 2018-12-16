@@ -1,6 +1,19 @@
 
 
 const playerManager = (() => {
+  const playerAnimations = {
+    right: 'moveRight',
+    left: 'moveLeft',
+    up: 'moveUp',
+    down: 'moveDown',
+  };
+  const playerFacing = {
+    right: 'faceRight',
+    left: 'faceLeft',
+    up: 'faceUp',
+    down: 'faceDown',
+  }
+
   let player;
   let app;
 
@@ -9,6 +22,7 @@ const playerManager = (() => {
     initializePlayer: initializePlayer,
     playerInstance: playerInstance,
     movePlayer: movePlayer,
+    setDirection: setDirection,
     setPlayerVelocity: setPlayerVelocity,
     checkInteractions: checkInteractions,
   }
@@ -21,13 +35,13 @@ const playerManager = (() => {
 
   function playerInstance() {
     if (!player) { 
-      initializePlayer(PIXI.loader.resources['assets/player_sheet.json'].textures);
+      initializePlayer(PIXI.loader.resources['assets/player_sheet.json']);
     }
     return player;
   }
 
   function movePlayer() {
-    updatePlayerAnimation();
+    checkPlayerAnimations();
 
     const newX = player.sprite.x + player.sprite.vx;
     const newY = player.sprite.y + player.sprite.vy;
@@ -38,26 +52,29 @@ const playerManager = (() => {
     }
   }
 
-  function updatePlayerAnimation() {
-    if (player.sprite.vx !== 0 || player.sprite.vy !== 0) {
-      if (player.currentAnimation !== 'moving') {
-        const oldSprite = player.setAnimation('moving');
-        camera.removeFromCamera(oldSprite);
-        camera.addToCamera(player.sprite);
-        stageUtils.resortStageLayers();
-      }
-    } else {
-      if (player.currentAnimation !== 'notMoving') {
-        const oldSprite = player.setAnimation('notMoving');
-        camera.removeFromCamera(oldSprite);
-        camera.addToCamera(player.sprite);
-        stageUtils.resortStageLayers();
-      }
+  function checkPlayerAnimations() {
+    const moving = (player.sprite.vx !== 0 || player.sprite.vy !== 0);
+    const direction = player.direction;
+    const animation = moving ? playerAnimations[direction] : playerFacing[direction];
+    
+    if (animation !== player.currentAnimation) {
+      updatePlayerAnimation(animation);
     }
+  }
+
+  function updatePlayerAnimation(animation) {
+    const oldSprite = player.setAnimation(animation);
+    camera.removeFromCamera(oldSprite);
+    camera.addToCamera(player.sprite);
+    stageUtils.resortStageLayers();
   }
 
   function setPlayerVelocity(vx, vy) {
     player.setVelocity(vx, vy);
+  }
+
+  function setDirection(direction) {
+    player.setDirection(direction);
   }
 
   function checkInteractions() {

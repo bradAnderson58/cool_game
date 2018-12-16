@@ -1,7 +1,8 @@
 
-function Player(spriteSheet) {
+function Player(spriteResource) {
   this.name = 'player';
-  this.setupAnimations(spriteSheet);
+  this.direction = Direction.DOWN;
+  this.setupAnimations(spriteResource);
   this.sprite.name = 'player';
   this.sprite.layer = 1;
   this.sprite.vx = 0;
@@ -18,11 +19,22 @@ Player.prototype = {
     this.sprite.vy = vy;
   },
 
-  setupAnimations: function(sheet) {
+  setDirection: function(direction) {
+    this.direction = direction;
+  },
+
+  setupAnimations: function(resource) {
     this.animations = {};
-    this.animations.moving = new PIXI.extras.AnimatedSprite([sheet['playerfront_01.png'], sheet['playerfront_02.png']]);
-    this.animations.notMoving = new PIXI.extras.AnimatedSprite([sheet['player_front.png']]);
-    this.sprite = this.animations['notMoving'];
+    this.animations.moveRight = new PIXI.extras.AnimatedSprite(this.parseAnimation('playerright', resource));
+    this.animations.moveLeft = new PIXI.extras.AnimatedSprite(this.parseAnimation('playerleft', resource));
+    this.animations.moveUp = new PIXI.extras.AnimatedSprite(this.parseAnimation('playerback', resource));
+    this.animations.moveDown = new PIXI.extras.AnimatedSprite(this.parseAnimation('playerfront', resource));
+    
+    this.animations.faceRight = new PIXI.extras.AnimatedSprite([resource.textures['player_right.png']]);
+    this.animations.faceLeft = new PIXI.extras.AnimatedSprite([resource.textures['player_left.png']]);
+    this.animations.faceUp = new PIXI.extras.AnimatedSprite([resource.textures['player_back.png']]);
+    this.animations.faceDown = new PIXI.extras.AnimatedSprite([resource.textures['player_front.png']]);
+    this.sprite = this.animations.faceDown;
   },
 
   setAnimation: function(animation) {
@@ -37,5 +49,13 @@ Player.prototype = {
     this.sprite.play();
 
     return oldSprite;
+  },
+
+  parseAnimation: function(animationName, resource) {
+    const sheet = resource.textures;
+    const animationFrames = resource.data.animations[animationName];
+    return animationFrames.map(frame => sheet[frame]);
   }
 }
+
+
