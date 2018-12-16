@@ -6,6 +6,7 @@ const camera = (function() {
     followPlayer: followPlayer,
     setStage: setStage,
     addToCamera: addToCamera,
+    removeFromCamera: removeFromCamera,
     getInstance: getInstance,
   }
 
@@ -23,6 +24,10 @@ const camera = (function() {
 
   function addToCamera(sprite) {
     camera.addChild(sprite);
+  }
+
+  function removeFromCamera(sprite) {
+    camera.removeChild(sprite);
   }
 
   function getInstance() {

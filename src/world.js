@@ -35,7 +35,7 @@ const world = (function() {
   function startGame() {
     PIXI.loader
       .add([
-        'assets/grey_x2.json',
+        'assets/player_sheet.json',
         'assets/tf_darkdimension/darkdimension.json',
       ])
       .load(setup);
